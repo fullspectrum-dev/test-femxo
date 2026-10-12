@@ -84,8 +84,8 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/femxo-favicon.png",
-    apple: "/femxo-favicon.png",
+    icon: "/favicon.ico?v=20261012",
+    apple: "/femxo-favicon.png?v=20261012",
   },
 };
 
