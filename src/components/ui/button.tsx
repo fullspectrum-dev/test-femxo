@@ -41,6 +41,7 @@ function Button({
   asChild = false,
   className,
   children,
+  nativeButton,
   ...props
 }: ButtonProps) {
   let render: ReactElement | undefined;
@@ -56,6 +57,7 @@ function Button({
     <ButtonPrimitive
       data-slot="button"
       render={render}
+      nativeButton={asChild ? false : nativeButton}
       className={cn(
         "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
         variantClasses[variant],
