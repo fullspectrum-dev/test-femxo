@@ -36,24 +36,9 @@ export function Pricing() {
                 {plan.description}
               </p>
               <div className="mt-6 flex min-h-14 items-baseline gap-2">
-                {plan.price === null ? (
-                  <span className="font-display text-3xl font-bold text-foreground">
-                    Let&apos;s talk
-                  </span>
-                ) : (
-                  <>
-                    <span className="font-display text-4xl font-bold tracking-tight text-foreground">
-                      {plan.price === 0
-                        ? "Free"
-                        : `₹${plan.price.toLocaleString("en-IN")}`}
-                    </span>
-                    {plan.price > 0 && (
-                      <span className="text-sm text-muted-foreground">
-                        / {plan.period}
-                      </span>
-                    )}
-                  </>
-                )}
+                <span className="font-display text-3xl font-bold text-foreground">
+                  Coming soon
+                </span>
               </div>
               <ul className="mt-6 flex-1 space-y-3 border-t border-border/70 pt-6">
                 {plan.features.map((feature) => (
