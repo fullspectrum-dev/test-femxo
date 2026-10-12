@@ -106,7 +106,7 @@ export const PRICING = [
       "Email support",
       "GST billing",
     ],
-    cta: "Start Free",
+    cta: "Coming Soon",
     highlighted: false,
   },
   {
@@ -122,7 +122,7 @@ export const PRICING = [
       "Commission engine",
       "API access",
     ],
-    cta: "Start 14-Day Trial",
+    cta: "Coming Soon",
     highlighted: true,
   },
   {
@@ -138,7 +138,7 @@ export const PRICING = [
       "SLA + 24×7 support",
       "On-premise option",
     ],
-    cta: "Contact Sales",
+    cta: "Coming Soon",
     highlighted: false,
   },
 ] as const;
