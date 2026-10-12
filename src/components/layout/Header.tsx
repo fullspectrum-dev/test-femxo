@@ -1,0 +1,151 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/shared/Container";
+import { NAV_LINKS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+
+export function Header() {
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const sectionHref = (href: string) => (pathname === "/" ? href : `/${href}`);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 text-white transition-all duration-300",
+        isScrolled || isMobileOpen
+          ? "border-b border-border/50 bg-background/95 text-foreground shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-background/85"
+          : "bg-transparent"
+      )}
+    >
+      <Container>
+        <div className="flex h-16 items-center justify-between lg:h-20">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="inline-flex shrink-0 items-center rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-black/5 transition-transform hover:scale-[1.02]"
+            aria-label="Femxo Consultancy Services home"
+          >
+            <Image
+              src="/images/femxo-consultancy-logo.png"
+              alt="Femxo Consultancy Services"
+              width={737}
+              height={339}
+              priority
+              className="h-10 w-[88px] object-contain sm:h-11 sm:w-[96px]"
+            />
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={sectionHref(link.href)}
+                className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent/10 hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Desktop CTAs */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <div className="hidden items-center gap-2 lg:flex">
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="text-inherit hover:bg-white/10 hover:text-white"
+            >
+              <Link href={sectionHref("#contact")}>Talk to Sales</Link>
+            </Button>
+            <Button size="sm" asChild className="bg-accent hover:bg-accent/90">
+              <Link href={sectionHref("#pricing")}>View Plans</Link>
+            </Button>
+            </div>
+            <button
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
+              className="flex size-10 items-center justify-center rounded-xl text-inherit transition-colors hover:bg-current/10 lg:hidden"
+              aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileOpen}
+              aria-controls="mobile-navigation"
+            >
+              {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </Container>
+
+      {/* Mobile Menu */}
+      <div
+        id="mobile-navigation"
+        aria-hidden={!isMobileOpen}
+        inert={!isMobileOpen}
+        className={cn(
+          "grid overflow-hidden border-border/50 bg-background shadow-xl transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden",
+          isMobileOpen
+            ? "grid-rows-[1fr] border-t opacity-100"
+            : "pointer-events-none grid-rows-[0fr] opacity-0"
+        )}
+      >
+          <div className="min-h-0 overflow-hidden">
+            <Container className="py-4">
+              <nav className="flex flex-col gap-1" aria-label="Mobile">
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={sectionHref(link.href)}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="rounded-md px-4 py-3 text-base font-medium text-foreground transition-colors hover:bg-accent/10"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+              <div className="mt-4 flex flex-col gap-2 border-t border-border/50 pt-4">
+                <Button variant="outline" asChild>
+                  <Link
+                    href={sectionHref("#contact")}
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    Talk to Sales
+                  </Link>
+                </Button>
+                <Button asChild className="bg-accent hover:bg-accent/90">
+                  <Link
+                    href={sectionHref("#pricing")}
+                    onClick={() => setIsMobileOpen(false)}
+                  >
+                    View Plans
+                  </Link>
+                </Button>
+              </div>
+            </Container>
+          </div>
+      </div>
+    </header>
+  );
+}
