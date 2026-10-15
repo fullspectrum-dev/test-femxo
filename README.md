@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FEMXO ERP web app
 
-## Getting Started
+Next.js App Router landing pages and responsive FEMXO account-access screens.
+The authentication screens follow the supplied six-page design PDF: a deep
+purple illustration panel paired with a clean, lavender-tinted form panel.
 
-First, run the development server:
+## Requirements and local setup
 
-```bash
+- Node.js 24.15 or later (matches the checked-in test-tool dependency engine
+  requirements).
+- npm.
+
+```powershell
+npm ci
+Copy-Item .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. The auth routes are:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/register`
+- `/login`
+- `/verify-otp`
+- `/forgot-password`
+- `/reset-password`
+- `/{portal}/coming-soon` after a successful sign-in (role-specific)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Successful password and OTP sign-ins show the account type on its dedicated
+full-viewport coming-soon page, separate from the authentication layout. That
+page is guarded by the in-memory sign-in result and
+returns to the matching role login if opened directly or without a completed
+sign-in in the current tab.
 
-## Learn More
+This repository has no authentication backend. Local development therefore
+defaults to a clearly labeled, in-memory demo flow so registration and portal
+screens can be tried without a server. Demo data is lost when the browser page
+session ends and never creates a real account, sends an OTP, or establishes a
+secure session. Production builds always disable demo authentication.
 
-To learn more about Next.js, take a look at the following resources:
+## Configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`NEXT_PUBLIC_AUTH_API_BASE_URL` is a public API origin/path, not a secret. It
+defaults to `/api/auth`, which expects a same-origin backend or reverse proxy.
+For a separate API, set it to an HTTPS origin and configure CORS to allow the
+exact web origin and credentials. Never put API keys, private URLs, passwords,
+or signing secrets in `NEXT_PUBLIC_*` variables.
+`NEXT_PUBLIC_AUTH_DEMO_MODE=false` disables the local development demo and
+exercises the real API client. The mode cannot be enabled in a production
+build, even if the variable is set to `true`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Copy `.env.example` to `.env.local` for local work. Production secrets belong
+only in the backend's secret manager.
 
-## Deploy on Vercel
+## Authentication API contract
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Requests are JSON `POST`s with `credentials: "include"`, `cache: "no-store"`,
+a 12-second client timeout, and no automatic retry. The server must validate
+every field again. Error response bodies are deliberately not surfaced to the
+user; the UI maps HTTP statuses to safe, generic messages.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Endpoint | Request | Success response |
+| --- | --- | --- |
+| `POST /register` | `{ fullName, mobile, email, password, accountType, termsAccepted: true }` | `{ challengeId, expiresInSeconds, resendAfterSeconds, maskedDestination }` |
+| `POST /login/otp` | `{ mobile, accountType }` | Challenge response above |
+| `POST /login/password` | `{ email, password, accountType }` | `{ authenticated: true }` and a server-set session cookie |
+| `POST /otp/verify` | `{ challengeId, code, purpose, accountType }` | `{ verified: true, resetGrant? }` |
+| `POST /otp/resend` | `{ challengeId, purpose, accountType }` | A fresh challenge response |
+| `POST /password/recovery` | `{ identifier, accountType }` | Challenge response above, with an enumeration-safe response policy |
+| `POST /password/reset` | `{ resetGrant, password }` | `{ updated: true }` |
+
+When demo mode is disabled, the API base URL includes `/api/auth`; append the
+paths in the table to that base. `purpose` is `login`, `registration`, or `password_reset`. Login, OTP
+verification/resend, and password-recovery requests include an `accountType`
+matching the selected portal (`dealer`, `sub_dealer`, `retail_partner`,
+`customer`, or `super_admin`). Public registration accepts only
+`dealer`, `sub_dealer`, `retail_partner`, or `customer`; the server must reject
+`super_admin` registration regardless of the client UI.
+
+`/login` and `/register` are portal selectors. Each role then uses a separate
+route (`/customer/login`, `/dealer/login`, `/sub-dealer/login`,
+`/retail-partner/login`, or `/super-admin/login`) and receives a role-scoped
+API request. The backend must validate that the authenticated account actually
+belongs to the requested account type; this client-supplied context is not an
+authorization grant.
+
+The server must:
+
+- Set session cookies as `HttpOnly; Secure` in production with an appropriate
+  `SameSite` policy, rotate them when required, and never return session tokens
+  to browser JavaScript.
+- Provision Super Admin accounts only through a trusted administrative
+  process or authorized invitation. Public registration must reject that role.
+- Generate opaque, unpredictable, single-purpose OTP challenge IDs; expire
+  challenges, limit attempts, enforce resend cooldowns and rate limits on the
+  server, and invalidate superseded/consumed challenges.
+- Return the same status/body/shape and comparable timing from password
+  recovery whether or not an account exists. A successful recovery request
+  must provide a non-enumerating challenge response, including the same
+  generic `maskedDestination` string (never a contact-specific mask); deliver
+  a code only when appropriate. Centralize abuse limits across backend
+  replicas.
+- Return a short-lived, single-use reset grant only after a valid recovery OTP.
+  Bind it to the account and reset purpose, end other active sessions after a
+  successful password change, and do not use the grant as a login session.
+- Validate allowed origins and apply CSRF protections for cookie-authenticated
+  mutations. Use HTTPS, secure headers, audit privileged account changes, and
+  avoid logging passwords, OTPs, reset grants, session cookies, or raw
+  identifiers.
+- Record accepted terms/version and timestamps on the server; `termsAccepted`
+  from the browser is not proof of consent by itself.
+
+The OTP challenge and reset grant are held only in the auth route group's
+in-memory React provider. They are intentionally not written to localStorage,
+sessionStorage, cookies, URLs, or logs. Reloading or opening a new tab discards
+an in-progress flow; the user can request a new code.
+
+## Structure
+
+```text
+src/app/(auth)/                 Auth route group and shared flow provider
+src/app/(auth)/{route}/         Five independent App Router pages
+src/features/auth/components/   Shared auth frame, inputs, and each form
+src/features/auth/schemas/      Zod client-side validation
+src/features/auth/services/     Typed backend client and privacy-safe event hook
+src/features/auth/types/        Account, challenge, and API types
+src/features/auth/utils/        Password-strength presentation helper
+tests/                           Vitest/Testing Library and Playwright specs
+```
+
+## Quality checks
+
+```powershell
+npm run lint
+npm run typecheck
+npm test
+npx playwright install chromium
+npm run test:e2e
+npm run test:e2e:demo
+npm run build
+```
+
+The regular Playwright flow tests disable demo mode and stub API responses to
+verify the real API client interaction and route transitions. The separate
+`test:e2e:demo` suite exercises the local-only demo implementation. Neither
+suite validates the security or availability of a real authentication service.
+Lighthouse/Core Web Vitals and load testing have not been run. A million
+registered accounts is not a measured concurrency or capacity result.
+
+## Deployment and scaling notes
+
+Deploy the frontend behind HTTPS and a CDN for static assets. Route API calls to
+a backend with horizontally scalable application instances, shared durable
+identity/session storage, and centralized OTP/login rate limiting. Define
+explicit timeout and availability SLOs, privacy-safe error monitoring, alerting,
+and tested recovery/runbook procedures before production rollout. Do not add
+client-side caching or retry authentication mutations without an idempotency
+contract. Capacity claims require workload-specific load tests and monitoring;
+this UI implementation does not establish backend scale.
+
+The four local demo accounts (Customer, Dealer, Sub-dealer, Super Admin) are
+pre-filled on their respective sign-in pages. Demo password sign-in, OTP
+`123456`, registration, and recovery are handled by a browser-memory-only
+mock. These visible sample credentials are intentionally not secrets and must
+never be reused in a real environment. Super Admin demo access is only a local
+preview and does not grant real privileges. Retail Partner accounts can be
+created in the demo flow but do not have a pre-seeded credential.
+
+`reportAuthFailure` emits a `femxo:auth-failure` browser event containing only
+the endpoint path, HTTP status (when available), and failure category. A
+deployment may bridge this event to its approved monitoring service after
+reviewing its privacy policy. No personal form value is included.

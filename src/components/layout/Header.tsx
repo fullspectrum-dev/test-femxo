@@ -74,6 +74,9 @@ export function Header() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <div className="hidden items-center gap-2 lg:flex">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">Sign in</Link>
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -88,6 +91,9 @@ export function Header() {
               className="bg-accent text-accent-foreground hover:bg-accent/90"
             >
               <Link href={sectionHref("#pricing")}>View Plans</Link>
+            </Button>
+            <Button size="sm" asChild>
+              <Link href="/register">Create account</Link>
             </Button>
             </div>
             <button
@@ -130,6 +136,16 @@ export function Header() {
                 ))}
               </nav>
               <div className="mt-4 flex flex-col gap-2 border-t border-border/50 pt-4">
+                <Button variant="outline" asChild>
+                  <Link href="/login" onClick={() => setIsMobileOpen(false)}>
+                    Sign in
+                  </Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/register" onClick={() => setIsMobileOpen(false)}>
+                    Create account
+                  </Link>
+                </Button>
                 <Button variant="outline" asChild>
                   <Link
                     href={sectionHref("#contact")}
