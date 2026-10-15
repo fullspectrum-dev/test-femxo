@@ -40,34 +40,31 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // FEMXO Brand Colors
+        // Shared FEMXO brand scale: purple with a lavender tint.
         brand: {
-          50: "#F5F3FF",
-          100: "#EDE9FE",
-          200: "#DDD6FE",
-          300: "#C4B5FD",
-          400: "#A78BFA",
-          500: "#8B5CF6",
-          600: "#7C3AED",
-          700: "#6D28D9",
-          800: "#5B21B6",
-          900: "#4C1D95",
-          950: "#2E1065",
+          50: "#F6F0FC",
+          100: "#EBDDF7",
+          200: "#D8BDEA",
+          300: "#C49BDD",
+          400: "#A975CB",
+          500: "#8A52B6",
+          600: "#6C35A5",
+          700: "#5A2B8A",
+          800: "#45216F",
+          900: "#32184F",
+          950: "#211032",
         },
-        accent_orange: {
-          400: "#FB923C",
-          500: "#F97316",
-          600: "#EA580C",
-          700: "#C2410C",
-        },
-        accent_yellow: {
-          400: "#FBBF24",
-          500: "#F59E0B",
+        lime: {
+          400: "#D4F88A",
+          500: "#C7F464",
+          600: "#A8D84D",
+          700: "#7CA832",
         },
       },
       fontFamily: {
-        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"],
-        display: ["var(--font-sora)", "var(--font-jakarta)", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)", "var(--font-inter)", "sans-serif"],
+        heading: ["var(--font-poppins)", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
       borderRadius: {
@@ -76,10 +73,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "gradient-hero": "linear-gradient(135deg, #4C1D95 0%, #6D28D9 50%, #8B5CF6 100%)",
-        "gradient-cta": "linear-gradient(135deg, #EA580C 0%, #F59E0B 100%)",
+        "gradient-hero": "linear-gradient(135deg, #45216F 0%, #5A2B8A 55%, #6C35A5 100%)",
+        "gradient-cta": "linear-gradient(135deg, #C7F464 0%, #D4F88A 100%)",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-mesh": "radial-gradient(at 40% 20%, hsla(270,90%,60%,0.3) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(35,90%,60%,0.2) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(270,90%,60%,0.2) 0px, transparent 50%)",
+        "gradient-mesh": "radial-gradient(at 40% 20%, hsla(272,51%,43%,0.2) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(79,87%,67%,0.12) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(272,51%,43%,0.14) 0px, transparent 50%)",
       },
       keyframes: {
         "accordion-down": {

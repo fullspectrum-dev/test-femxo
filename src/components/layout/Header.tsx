@@ -78,11 +78,15 @@ export function Header() {
               variant="ghost"
               size="sm"
               asChild
-              className="text-inherit hover:bg-white/10 hover:text-white"
+              className="text-inherit hover:bg-current/10"
             >
               <Link href={sectionHref("#contact")}>Talk to Sales</Link>
             </Button>
-            <Button size="sm" asChild className="bg-accent hover:bg-accent/90">
+            <Button
+              size="sm"
+              asChild
+              className="bg-accent text-accent-foreground hover:bg-accent/90"
+            >
               <Link href={sectionHref("#pricing")}>View Plans</Link>
             </Button>
             </div>
@@ -134,7 +138,10 @@ export function Header() {
                     Talk to Sales
                   </Link>
                 </Button>
-                <Button asChild className="bg-accent hover:bg-accent/90">
+                <Button
+                  asChild
+                  className="bg-accent text-accent-foreground hover:bg-accent/90"
+                >
                   <Link
                     href={sectionHref("#pricing")}
                     onClick={() => setIsMobileOpen(false)}

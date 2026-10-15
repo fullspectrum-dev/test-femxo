@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Sora } from "next/font/google";
 import "./globals.css";
 
 const themeInitializationScript = `
@@ -16,20 +15,6 @@ const themeInitializationScript = `
     document.documentElement.style.colorScheme = isDark ? "dark" : "light";
   }
 `;
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-  preload: true,
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-  preload: false,
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://femxo.com"),
@@ -91,8 +76,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#7C3AED" },
-    { media: "(prefers-color-scheme: dark)", color: "#4C1D95" },
+    { media: "(prefers-color-scheme: light)", color: "#6C35A5" },
+    { media: "(prefers-color-scheme: dark)", color: "#45216F" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -105,7 +90,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${sora.variable}`}
       suppressHydrationWarning
     >
       <head>

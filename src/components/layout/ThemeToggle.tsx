@@ -12,23 +12,32 @@ function applyTheme(isDark: boolean) {
 }
 
 function subscribeToTheme(onStoreChange: () => void) {
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+    if (window.localStorage.getItem(THEME_STORAGE_KEY) !== null) return;
+
+    applyTheme(event.matches);
+    onStoreChange();
+  };
   const handleStorageChange = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY && event.key !== null) return;
 
     const isDark =
       event.key === THEME_STORAGE_KEY && event.newValue !== null
         ? event.newValue === "dark"
-        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        : systemTheme.matches;
     applyTheme(isDark);
     onStoreChange();
   };
 
   window.addEventListener(THEME_CHANGE_EVENT, onStoreChange);
   window.addEventListener("storage", handleStorageChange);
+  systemTheme.addEventListener("change", handleSystemThemeChange);
 
   return () => {
     window.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
     window.removeEventListener("storage", handleStorageChange);
+    systemTheme.removeEventListener("change", handleSystemThemeChange);
   };
 }
 

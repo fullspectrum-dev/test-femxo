@@ -4,8 +4,8 @@
   "description": "India ka Naya Business ERP Platform",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#4C1D95",
-  "theme_color": "#7C3AED",
+  "background_color": "#45216F",
+  "theme_color": "#6C35A5",
   "icons": [
     {
       "src": "/icons/icon-192.png",

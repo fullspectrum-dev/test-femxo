@@ -8,11 +8,7 @@ export function FinalCTA() {
     <section id="contact" className="relative overflow-hidden bg-gradient-hero py-20 lg:py-28">
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 50% 50%, rgba(251,191,36,0.5) 0%, transparent 60%)",
-        }}
+        className="absolute -right-24 -top-32 size-96 rounded-full bg-accent/20 blur-3xl"
       />
       <Container className="relative text-center">
         <h2 className="mx-auto max-w-3xl font-display text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
@@ -26,7 +22,7 @@ export function FinalCTA() {
           <Button
             size="lg"
             asChild
-            className="w-full bg-white text-brand-700 shadow-xl hover:bg-brand-50 sm:w-auto"
+            className="w-full bg-accent text-brand-900 shadow-glow-lime hover:bg-accent/90 sm:w-auto"
           >
             <Link href="#pricing">
               Start Free Trial
@@ -42,7 +38,7 @@ export function FinalCTA() {
             <Link href="#faq">Read FAQs</Link>
           </Button>
         </div>
-        <p className="mt-6 text-xs text-brand-200">
+        <p className="mt-6 text-xs text-brand-100">
           ✓ 14-day free trial · ✓ No credit card · ✓ Cancel anytime
         </p>
       </Container>

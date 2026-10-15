@@ -2,49 +2,100 @@
 @import "tw-animate-css";
 @config "../../tailwind.config.ts";
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/inter-latin-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/poppins-latin-800.woff2") format("woff2");
+}
+
 @layer base {
   :root {
+    --font-inter: "Inter";
+    --font-poppins: "Poppins";
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 270 26% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 270 26% 13%;
 
-    --primary: 262 83% 58%;           /* #7C3AED */
+    --primary: 272 51% 43%;           /* #6C35A5 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 262 100% 96%;        /* #EDE9FE */
-    --secondary-foreground: 262 83% 30%;
+    --secondary: 270 60% 97%;         /* #F6F0FC */
+    --secondary-foreground: 270 54% 28%;
 
-    --accent: 24 95% 53%;             /* #EA580C */
-    --accent-foreground: 0 0% 100%;
+    --accent: 79 87% 67%;             /* #C7F464 */
+    --accent-foreground: 270 54% 20%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 270 40% 97%;
+    --muted-foreground: 270 10% 43%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
+    --border: 270 24% 90%;
+    --input: 270 24% 88%;
+    --ring: 272 51% 43%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 20% 98%;
-    --card: 224 71% 6%;
-    --card-foreground: 210 20% 98%;
-    --primary: 262 83% 65%;
+    color-scheme: dark;
+    --background: 270 32% 8%;
+    --foreground: 270 24% 96%;
+    --card: 270 28% 11%;
+    --card-foreground: 270 24% 96%;
+    --primary: 272 51% 56%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 262 40% 16%;
-    --secondary-foreground: 210 20% 98%;
-    --accent: 24 95% 60%;
-    --accent-foreground: 0 0% 100%;
-    --muted: 223 47% 11%;
-    --muted-foreground: 215 20% 65%;
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 262 83% 65%;
+    --secondary: 270 30% 17%;
+    --secondary-foreground: 270 24% 96%;
+    --accent: 79 87% 67%;
+    --accent-foreground: 270 54% 20%;
+    --muted: 270 24% 15%;
+    --muted-foreground: 270 12% 68%;
+    --border: 270 18% 23%;
+    --input: 270 18% 25%;
+    --ring: 272 51% 62%;
   }
 
   * {
@@ -60,6 +111,15 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-poppins), sans-serif;
   }
 
   /* Respect reduced motion */
@@ -94,15 +154,15 @@
   }
 
   .glass-card {
-    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl;
+    @apply rounded-2xl border border-border/70 bg-card/85 shadow-lg shadow-primary/5 backdrop-blur-xl;
   }
 
   .shadow-glow {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 40px rgba(108, 53, 165, 0.3);
   }
 
-  .shadow-glow-orange {
-    box-shadow: 0 0 40px rgba(234, 88, 12, 0.4);
+  .shadow-glow-lime {
+    box-shadow: 0 0 32px rgba(199, 244, 100, 0.24);
   }
 
   .section-padding {

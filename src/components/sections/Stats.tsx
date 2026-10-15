@@ -10,7 +10,7 @@ export function Stats() {
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 25% 25%, rgba(251,191,36,0.4) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(139,92,246,0.4) 0%, transparent 40%)",
+            "radial-gradient(circle at 25% 25%, rgba(199,244,100,0.22) 0%, transparent 40%), radial-gradient(circle at 75% 75%, rgba(108,53,165,0.32) 0%, transparent 40%)",
         }}
       />
       <Container className="relative">

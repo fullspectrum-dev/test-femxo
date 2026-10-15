@@ -15,7 +15,7 @@ export function Hero() {
         className="absolute inset-0 overflow-hidden"
       >
         <div className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl" />
-        <div className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-accent_yellow-400/20 blur-3xl" />
+        <div className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-lime-400/20 blur-3xl" />
         <div className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-300/20 blur-3xl" />
       </div>
 
@@ -37,7 +37,7 @@ export function Hero() {
             <div
               className="animate-in fade-in slide-in-from-bottom-3 duration-700 mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md sm:px-4 sm:text-sm"
             >
-              <Sparkles size={14} className="text-accent_yellow-400" />
+              <Sparkles size={14} className="text-lime-400" />
               <span>AI-powered ERP for India</span>
               <span className="hidden sm:inline">·</span>
               <span className="hidden text-brand-200 sm:inline">
@@ -51,7 +51,7 @@ export function Hero() {
             >
               India ka{" "}
               <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-accent_yellow-400 to-accent_orange-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-lime-400 to-lime-500 bg-clip-text text-transparent">
                   Naya
                 </span>
               </span>{" "}
@@ -72,7 +72,7 @@ export function Hero() {
               <Button
                 size="lg"
                 asChild
-                className="w-full bg-gradient-cta text-white shadow-glow-orange transition-transform hover:scale-[1.02] sm:w-auto"
+                className="w-full bg-gradient-cta text-brand-900 shadow-glow-lime transition-transform hover:scale-[1.02] sm:w-auto"
               >
                 <Link href="#pricing">
                   Start Free Trial
@@ -102,7 +102,7 @@ export function Hero() {
                     <Star
                       key={i}
                       size={14}
-                      className="fill-accent_yellow-400 text-accent_yellow-400"
+                      className="fill-lime-400 text-lime-400"
                     />
                   ))}
                 </div>
@@ -121,35 +121,35 @@ export function Hero() {
           >
             <div className="relative animate-float">
               {/* Glow */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-brand-500/40 to-accent_orange-500/40 opacity-60 blur-2xl" />
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-brand-500/35 to-lime-500/20 opacity-60 blur-2xl" />
 
               {/* Main Dashboard Card */}
               <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-1.5 shadow-2xl backdrop-blur-xl sm:p-2">
-                <div className="rounded-xl bg-white p-3 shadow-inner dark:bg-gray-900 sm:p-4">
+                <div className="rounded-xl bg-background p-3 text-foreground shadow-inner sm:p-4">
                   {/* Fake dashboard header */}
                   <div className="mb-4 flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
                     <div className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
                     <div className="h-2.5 w-2.5 rounded-full bg-green-400" />
-                    <div className="ml-2 h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700" />
+                    <div className="ml-2 h-2 flex-1 rounded-full bg-muted" />
                   </div>
 
                   {/* Stats grid */}
                   <div className="grid min-w-0 grid-cols-3 gap-1.5 sm:gap-2">
                     {[
                       { label: "Sales", value: "₹4.2L", color: "bg-brand-500" },
-                      { label: "Orders", value: "1,284", color: "bg-accent_orange-500" },
+                      { label: "Orders", value: "1,284", color: "bg-lime-600" },
                       { label: "Dealers", value: "342", color: "bg-green-500" },
                     ].map((s) => (
                       <div
                         key={s.label}
-                        className="min-w-0 rounded-lg border border-gray-200 bg-gray-50 p-1.5 sm:p-2 dark:border-gray-700 dark:bg-gray-800"
+                        className="min-w-0 rounded-lg border border-border bg-muted/60 p-1.5 sm:p-2"
                       >
                         <div className={`mb-1 h-1 w-6 rounded-full ${s.color}`} />
-                        <div className="text-[10px] font-medium text-gray-500">
+                        <div className="text-[10px] font-medium text-muted-foreground">
                           {s.label}
                         </div>
-                        <div className="text-xs font-bold text-gray-900 dark:text-white">
+                        <div className="text-xs font-bold text-foreground">
                           {s.value}
                         </div>
                       </div>
@@ -157,17 +157,17 @@ export function Hero() {
                   </div>
 
                   {/* Chart mockup */}
-                  <div className="mt-3 rounded-lg border border-gray-200 bg-gradient-to-br from-brand-50 to-white p-3 dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
+                  <div className="mt-3 rounded-lg border border-border bg-secondary/70 p-3">
                     <div className="mb-2 flex items-end justify-between gap-1">
                       {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
                         <div
                           key={i}
-                          className="flex-1 rounded-t bg-gradient-to-t from-brand-500 to-brand-400"
+                          className="flex-1 rounded-t bg-gradient-to-t from-brand-600 to-brand-400"
                           style={{ height: `${h}px` }}
                         />
                       ))}
                     </div>
-                    <div className="flex justify-between text-[8px] text-gray-400">
+                    <div className="flex justify-between text-[8px] text-muted-foreground">
                       <span>Mon</span>
                       <span>Tue</span>
                       <span>Wed</span>
@@ -183,12 +183,12 @@ export function Hero() {
                     {[1, 2, 3].map((i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-2 rounded-md border border-gray-100 bg-gray-50 p-2 dark:border-gray-800 dark:bg-gray-800"
+                        className="flex items-center gap-2 rounded-md border border-border/70 bg-muted/50 p-2"
                       >
                         <div className="h-6 w-6 rounded bg-brand-200" />
                         <div className="flex-1 space-y-1">
-                          <div className="h-1.5 w-2/3 rounded bg-gray-300 dark:bg-gray-600" />
-                          <div className="h-1.5 w-1/3 rounded bg-gray-200 dark:bg-gray-700" />
+                          <div className="h-1.5 w-2/3 rounded bg-muted-foreground/35" />
+                          <div className="h-1.5 w-1/3 rounded bg-muted-foreground/20" />
                         </div>
                         <div className="text-[10px] font-semibold text-green-600">
                           +₹{120 * i}
@@ -201,15 +201,15 @@ export function Hero() {
 
               {/* Floating badge 1 */}
               <div
-                className="animate-in fade-in slide-in-from-left-4 delay-700 duration-500 absolute -left-4 top-1/4 hidden rounded-xl border border-white/20 bg-white p-3 shadow-xl backdrop-blur-md sm:block"
+                className="animate-in fade-in slide-in-from-left-4 delay-700 duration-500 absolute -left-4 top-1/4 hidden rounded-2xl border border-border/70 bg-card p-3 shadow-xl shadow-brand-900/10 backdrop-blur-md sm:block"
               >
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 text-green-600">
                     ✓
                   </div>
                   <div>
-                    <div className="text-[10px] text-gray-500">Order confirmed</div>
-                    <div className="text-xs font-semibold text-gray-900">
+                    <div className="text-[10px] text-muted-foreground">Order confirmed</div>
+                    <div className="text-xs font-semibold text-card-foreground">
                       ₹12,400
                     </div>
                   </div>
@@ -218,15 +218,15 @@ export function Hero() {
 
               {/* Floating badge 2 */}
               <div
-                className="animate-in fade-in slide-in-from-right-4 delay-1000 duration-500 absolute -right-4 bottom-1/4 hidden rounded-xl border border-white/20 bg-white p-3 shadow-xl backdrop-blur-md sm:block"
+                className="animate-in fade-in slide-in-from-right-4 delay-1000 duration-500 absolute -right-4 bottom-1/4 hidden rounded-2xl border border-border/70 bg-card p-3 shadow-xl shadow-brand-900/10 backdrop-blur-md sm:block"
               >
                 <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
                     ↑
                   </div>
                   <div>
-                    <div className="text-[10px] text-gray-500">Commission</div>
-                    <div className="text-xs font-semibold text-gray-900">
+                    <div className="text-[10px] text-muted-foreground">Commission</div>
+                    <div className="text-xs font-semibold text-card-foreground">
                       +₹2,180
                     </div>
                   </div>
