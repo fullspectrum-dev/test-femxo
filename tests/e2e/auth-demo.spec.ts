@@ -27,7 +27,7 @@ const demoLogins = [
   },
 ] as const;
 
-test("pre-fills and accepts local demo credentials for the four portals", async ({
+test("pre-fills and accepts demo credentials for the four portals", async ({
   page,
 }) => {
   test.setTimeout(90_000);
@@ -38,14 +38,17 @@ test("pre-fills and accepts local demo credentials for the four portals", async 
     await expect(page.locator("#login-password")).toHaveValue(portal.password);
     await expect(
       page.getByRole("note", { name: "Demo mode notice" })
-    ).toContainText("DEMO MODE");
+    ).toContainText("No real account or secure session is created");
     await page.getByRole("button", { name: "Sign in", exact: true }).click();
     await expect(page).toHaveURL(
       new RegExp(`/${portal.slug}/coming-soon$`),
       { timeout: 15_000 }
     );
     await expect(page.locator(".coming-soon-eyebrow")).toContainText(
-      `Signed in · ${portal.heading.replace(" sign in", "")}`
+      `Demo access · ${portal.heading.replace(" sign in", "")}`
+    );
+    await expect(page.locator(".coming-soon-security")).toContainText(
+      "No real account is signed in"
     );
     await expect(
       page.getByRole("heading", { name: "Something thoughtful is on its way." })
@@ -53,7 +56,7 @@ test("pre-fills and accepts local demo credentials for the four portals", async 
   }
 });
 
-test("registration finishes in local demo mode with the visible demo code", async ({
+test("registration finishes in demo mode with the visible demo code", async ({
   page,
 }) => {
   await page.goto("/dealer/register");
@@ -66,7 +69,7 @@ test("registration finishes in local demo mode with the visible demo code", asyn
   await page.getByRole("button", { name: "Create account" }).click();
 
   await expect(page).toHaveURL(/\/verify-otp$/, { timeout: 15_000 });
-  await expect(page.getByText(/Demo mode: use the local verification code 123456/)).toBeVisible();
+  await expect(page.getByText(/Demo mode: use the test verification code 123456/)).toBeVisible();
   const digits = page.getByRole("group", { name: "6-digit verification code" });
   await expect(
     digits.getByRole("textbox", { name: "Verification code digit 1" })

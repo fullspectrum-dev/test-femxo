@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { ArrowLeft, ArrowUpRight, BellRing, Clock3, ShieldCheck, Sparkles } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { isAuthDemoMode } from "../services/demo-mode";
 import { AuthPortalLoading } from "./AuthPortalLoading";
 import { getAuthPortalSlug } from "../utils/auth-portals";
 import type { AuthPortal } from "../utils/auth-portals";
@@ -49,7 +50,7 @@ export function ComingSoonPage({ portal }: { portal: AuthPortal }) {
         <div className="coming-soon-copy">
           <p className="coming-soon-eyebrow">
             <span className="coming-soon-status-dot" aria-hidden="true" />
-            Signed in · {portal.label}
+            {isAuthDemoMode ? "Demo access" : "Signed in"} · {portal.label}
           </p>
           <h1 id="coming-soon-title">
             Something thoughtful
@@ -71,7 +72,9 @@ export function ComingSoonPage({ portal }: { portal: AuthPortal }) {
           </div>
           <p className="coming-soon-security">
             <ShieldCheck size={15} aria-hidden="true" />
-            You’re signed in to the {portal.label} experience.
+            {isAuthDemoMode
+              ? `You’re viewing a demo of the ${portal.label} experience. No real account is signed in.`
+              : `You’re signed in to the ${portal.label} experience.`}
           </p>
         </div>
 

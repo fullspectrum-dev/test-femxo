@@ -1,5 +1,5 @@
 const unavailable = (): never => {
-  throw new Error("Local demo authentication is disabled in production.");
+  throw new Error("Demo authentication is not enabled for this production build.");
 };
 
 export const DEMO_CREDENTIALS = {};

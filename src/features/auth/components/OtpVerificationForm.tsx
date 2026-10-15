@@ -165,7 +165,7 @@ export function OtpVerificationForm() {
       description={
         challenge
           ? challenge.demo
-            ? "Demo mode: use the local verification code 123456."
+            ? "Demo mode: use the test verification code 123456."
             : `Enter the 6-digit code sent to ${challenge.maskedDestination}.`
           : "Start a new sign-in or recovery request to receive a verification code."
       }

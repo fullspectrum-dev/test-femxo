@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+const productionDemoModeEnabled =
+  process.env.NEXT_PUBLIC_AUTH_DEMO_MODE === "true";
+
 const nextConfig: NextConfig = {
   /* config options here */
   distDir: process.env.NEXT_DIST_DIR || ".next",
@@ -7,7 +10,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   turbopack: {
     resolveAlias:
-      process.env.NODE_ENV === "production"
+      process.env.NODE_ENV === "production" && !productionDemoModeEnabled
         ? {
             "@/features/auth/services/demo-auth":
               "./src/features/auth/services/demo-auth-disabled.ts",

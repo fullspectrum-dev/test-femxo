@@ -31,11 +31,10 @@ page is guarded by the in-memory sign-in result and
 returns to the matching role login if opened directly or without a completed
 sign-in in the current tab.
 
-This repository has no authentication backend. Local development therefore
-defaults to a clearly labeled, in-memory demo flow so registration and portal
-screens can be tried without a server. Demo data is lost when the browser page
-session ends and never creates a real account, sends an OTP, or establishes a
-secure session. Production builds always disable demo authentication.
+This repository has no authentication backend. Development defaults to a
+clearly labeled, in-memory demo flow so registration and portal screens can be
+tried without a server. Demo data is temporary and never creates a real
+account, sends an OTP, or establishes a secure session.
 
 ## Configuration
 
@@ -44,9 +43,19 @@ defaults to `/api/auth`, which expects a same-origin backend or reverse proxy.
 For a separate API, set it to an HTTPS origin and configure CORS to allow the
 exact web origin and credentials. Never put API keys, private URLs, passwords,
 or signing secrets in `NEXT_PUBLIC_*` variables.
-`NEXT_PUBLIC_AUTH_DEMO_MODE=false` disables the local development demo and
-exercises the real API client. The mode cannot be enabled in a production
-build, even if the variable is set to `true`.
+`NEXT_PUBLIC_AUTH_DEMO_MODE=false` disables the demo and exercises the real API
+client. Production builds disable demo auth unless
+`NEXT_PUBLIC_AUTH_DEMO_MODE=true` is explicitly set at build time. Use that
+setting only for a public test deployment: the prefilled credentials and demo
+OTP are visible to every visitor, and anybody can enter the demo portals. Demo
+mode does not authenticate real accounts and must not be used for actual
+customer, dealer, or administrator access. Remove the setting and redeploy to
+disable the production demo.
+
+For a live test deployment, add `NEXT_PUBLIC_AUTH_DEMO_MODE=true` to the
+hosting provider's build environment for the Production or Preview target, then
+redeploy. This is a public client-side setting, not a secret. Do not enable it
+on a site that is being used for real account access.
 
 Copy `.env.example` to `.env.local` for local work. Production secrets belong
 only in the backend's secret manager.
@@ -157,13 +166,14 @@ client-side caching or retry authentication mutations without an idempotency
 contract. Capacity claims require workload-specific load tests and monitoring;
 this UI implementation does not establish backend scale.
 
-The four local demo accounts (Customer, Dealer, Sub-dealer, Super Admin) are
-pre-filled on their respective sign-in pages. Demo password sign-in, OTP
-`123456`, registration, and recovery are handled by a browser-memory-only
-mock. These visible sample credentials are intentionally not secrets and must
-never be reused in a real environment. Super Admin demo access is only a local
-preview and does not grant real privileges. Retail Partner accounts can be
-created in the demo flow but do not have a pre-seeded credential.
+The four demo accounts (Customer, Dealer, Sub-dealer, Super Admin) are
+pre-filled on their respective sign-in pages when demo mode is enabled. Demo
+password sign-in, OTP `123456`, registration, and recovery are handled by a
+browser-memory-only mock. These visible sample credentials are intentionally
+not secrets and must never be reused in a real environment. Super Admin demo
+access is a visual preview only and grants no real privileges. Retail Partner
+accounts can be created in the demo flow but do not have a pre-seeded
+credential.
 
 `reportAuthFailure` emits a `femxo:auth-failure` browser event containing only
 the endpoint path, HTTP status (when available), and failure category. A

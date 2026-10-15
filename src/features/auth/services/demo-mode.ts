@@ -1,3 +1,9 @@
+const isProduction = process.env.NODE_ENV === "production";
+const isDemoModeExplicitlyEnabled =
+  process.env.NEXT_PUBLIC_AUTH_DEMO_MODE === "true";
+const isDemoModeExplicitlyDisabled =
+  process.env.NEXT_PUBLIC_AUTH_DEMO_MODE === "false";
+
 export const isAuthDemoMode =
-  process.env.NODE_ENV !== "production" &&
-  process.env.NEXT_PUBLIC_AUTH_DEMO_MODE !== "false";
+  !isDemoModeExplicitlyDisabled &&
+  (!isProduction || isDemoModeExplicitlyEnabled);

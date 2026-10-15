@@ -127,8 +127,8 @@ export function AuthScreen({
               <p className="auth-demo-banner" role="note" aria-label="Demo mode notice">
                 <strong>DEMO MODE</strong>
                 <span>
-                  Local-only preview. No account or sign-in is sent to a
-                  backend, and demo data is cleared when this page session ends.
+                  Public test data only. No real account or secure session is
+                  created; never enter real or sensitive information.
                 </span>
               </p>
             )}
