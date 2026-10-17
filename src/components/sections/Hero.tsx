@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, PlayCircle, Sparkles, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/Container";
 
 export function Hero() {
@@ -14,9 +13,9 @@ export function Hero() {
         aria-hidden="true"
         className="absolute inset-0 overflow-hidden"
       >
-        <div className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl" />
-        <div className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-lime-400/20 blur-3xl" />
-        <div className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-300/20 blur-3xl" />
+        <div className="absolute -left-40 top-0 hidden h-96 w-96 rounded-full bg-brand-500/30 blur-3xl sm:block" />
+        <div className="absolute -right-40 bottom-0 hidden h-96 w-96 rounded-full bg-lime-400/20 blur-3xl sm:block" />
+        <div className="absolute left-1/2 top-1/3 hidden h-72 w-72 -translate-x-1/2 rounded-full bg-brand-300/20 blur-3xl sm:block" />
       </div>
 
       {/* Grid pattern */}
@@ -35,7 +34,7 @@ export function Hero() {
           {/* Left Column */}
           <div className="min-w-0 text-center lg:text-left">
             <div
-              className="animate-in fade-in slide-in-from-bottom-3 duration-700 mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md sm:px-4 sm:text-sm"
+              className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white sm:px-4 sm:text-sm sm:backdrop-blur-md"
             >
               <Sparkles size={14} className="text-lime-400" />
               <span>AI-powered ERP for India</span>
@@ -47,7 +46,7 @@ export function Hero() {
 
             <h1
               id="hero-heading"
-              className="animate-in fade-in slide-in-from-bottom-3 delay-100 duration-700 font-display text-[clamp(2.25rem,9vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl"
+              className="font-display text-[clamp(2.25rem,9vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl"
             >
               India ka{" "}
               <span className="relative inline-block">
@@ -59,7 +58,7 @@ export function Hero() {
             </h1>
 
             <p
-              className="animate-in fade-in slide-in-from-bottom-3 delay-200 duration-700 mx-auto mt-6 max-w-xl text-base leading-relaxed text-brand-100 sm:text-lg lg:mx-0"
+              className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-brand-100 sm:text-lg lg:mx-0"
             >
               Dealers, sub-dealers, retail partners, aur customers — sab ek
               platform pe. Inventory, orders, commission, settlement, GST
@@ -67,34 +66,27 @@ export function Hero() {
             </p>
 
             <div
-              className="animate-in fade-in slide-in-from-bottom-3 delay-300 duration-700 mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start"
+              className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start"
             >
-              <Button
-                size="lg"
-                asChild
-                className="w-full bg-gradient-cta text-brand-900 shadow-glow-lime transition-transform hover:scale-[1.02] sm:w-auto"
+              <Link
+                href="#pricing"
+                className="inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md bg-gradient-cta px-8 py-2 text-sm font-medium text-brand-900 shadow-glow-lime transition-transform outline-none hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
               >
-                <Link href="#pricing">
-                  Start Free Trial
-                  <ArrowRight className="ml-2" size={18} />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="w-full border-white/30 bg-white/5 text-white backdrop-blur-md hover:bg-white/10 hover:text-white sm:w-auto"
+                Start Free Trial
+                <ArrowRight size={18} />
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-white/30 bg-white/5 px-8 py-2 text-sm font-medium text-white backdrop-blur-md transition-colors outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
               >
-                <Link href="#how-it-works">
-                  <PlayCircle className="mr-2" size={18} />
-                  See How It Works
-                </Link>
-              </Button>
+                <PlayCircle size={18} />
+                See How It Works
+              </Link>
             </div>
 
             {/* Trust indicators */}
             <div
-              className="animate-in fade-in slide-in-from-bottom-3 delay-500 duration-700 mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-brand-200 lg:justify-start"
+              className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-brand-200 lg:justify-start"
             >
               <div className="flex items-center gap-2">
                 <div className="flex">
@@ -117,14 +109,14 @@ export function Hero() {
 
           {/* Right Column — Mockup */}
           <div
-            className="animate-in fade-in zoom-in-95 delay-300 duration-700 relative mx-auto w-full min-w-0 max-w-lg lg:max-w-none"
+            className="relative mx-auto w-full min-w-0 max-w-lg lg:max-w-none"
           >
-            <div className="relative animate-float">
+            <div className="relative sm:animate-float">
               {/* Glow */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-brand-500/35 to-lime-500/20 opacity-60 blur-2xl" />
+              <div className="absolute -inset-4 hidden rounded-3xl bg-gradient-to-r from-brand-500/35 to-lime-500/20 opacity-60 blur-2xl sm:block" />
 
               {/* Main Dashboard Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-1.5 shadow-2xl backdrop-blur-xl sm:p-2">
+              <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-1.5 shadow-2xl sm:p-2 sm:backdrop-blur-xl">
                 <div className="rounded-xl bg-background p-3 text-foreground shadow-inner sm:p-4">
                   {/* Fake dashboard header */}
                   <div className="mb-4 flex items-center gap-2">

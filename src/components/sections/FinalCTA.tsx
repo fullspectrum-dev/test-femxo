@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/Container";
 
 export function FinalCTA() {
@@ -19,24 +18,19 @@ export function FinalCTA() {
           required.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button
-            size="lg"
-            asChild
-            className="w-full bg-accent text-brand-900 shadow-glow-lime hover:bg-accent/90 sm:w-auto"
+          <Link
+            href="#pricing"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md bg-accent px-8 py-2 text-sm font-medium text-brand-900 shadow-glow-lime transition-colors outline-none hover:bg-accent/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
           >
-            <Link href="#pricing">
-              Start Free Trial
-              <ArrowRight className="ml-2" size={18} />
-            </Link>
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            asChild
-            className="w-full border-white/30 bg-white/5 text-white backdrop-blur-md hover:bg-white/10 hover:text-white sm:w-auto"
+            Start Free Trial
+            <ArrowRight size={18} />
+          </Link>
+          <Link
+            href="#faq"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-white/30 bg-white/5 px-8 py-2 text-sm font-medium text-white backdrop-blur-md transition-colors outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
           >
-            <Link href="#faq">Read FAQs</Link>
-          </Button>
+            Read FAQs
+          </Link>
         </div>
         <p className="mt-6 text-xs text-brand-100">
           ✓ 14-day free trial · ✓ No credit card · ✓ Cancel anytime

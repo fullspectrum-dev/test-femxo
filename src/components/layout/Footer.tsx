@@ -59,6 +59,7 @@ export async function Footer() {
                 alt="Femxo Consultancy Services"
                 width={737}
                 height={339}
+                sizes="132px"
                 className="h-14 w-[132px] object-contain"
               />
             </Link>

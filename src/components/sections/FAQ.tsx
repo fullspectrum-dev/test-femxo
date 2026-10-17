@@ -1,11 +1,4 @@
-"use client";
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FAQS } from "@/lib/constants";
@@ -20,18 +13,26 @@ export function FAQ() {
           subtitle="Everything you need to know about FEMXO ERP."
         />
 
-        <Accordion type="single" className="mt-8 w-full sm:mt-12">
+        <div className="mt-8 w-full sm:mt-12">
           {FAQS.map((faq, i) => (
-            <AccordionItem key={i} value={`item-${i}`}>
-              <AccordionTrigger className="gap-3 py-5 text-left text-sm font-semibold hover:text-brand-600 sm:py-6 sm:text-base">
+            <details
+              key={i}
+              name="femxo-faq"
+              className="group border-b border-border"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-5 text-left text-sm font-semibold hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:py-6 sm:text-base [&::-webkit-details-marker]:hidden">
                 {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                <ChevronDown
+                  aria-hidden="true"
+                  className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                />
+              </summary>
+              <div className="pb-4 text-sm leading-relaxed text-muted-foreground">
                 {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+              </div>
+            </details>
           ))}
-        </Accordion>
+        </div>
       </Container>
     </section>
   );

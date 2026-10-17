@@ -94,6 +94,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link
+          rel="preload"
+          href="/fonts/inter-latin-variable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">

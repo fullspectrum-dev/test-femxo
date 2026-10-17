@@ -13,7 +13,7 @@ export function TrustBar() {
             {[...INTEGRATIONS, ...INTEGRATIONS].map((name, i) => (
               <div
                 key={`${name}-${i}`}
-                className="flex shrink-0 items-center gap-2 text-lg font-semibold text-muted-foreground/60 transition-colors hover:text-foreground"
+                className="flex shrink-0 items-center gap-2 text-lg font-semibold text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="h-2 w-2 rounded-full bg-brand-500" />
                 {name}

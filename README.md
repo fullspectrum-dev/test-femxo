@@ -80,10 +80,10 @@ user; the UI maps HTTP statuses to safe, generic messages.
 When demo mode is disabled, the API base URL includes `/api/auth`; append the
 paths in the table to that base. `purpose` is `login`, `registration`, or `password_reset`. Login, OTP
 verification/resend, and password-recovery requests include an `accountType`
-matching the selected portal (`dealer`, `sub_dealer`, `retail_partner`,
-`customer`, or `super_admin`). Public registration accepts only
-`dealer`, `sub_dealer`, `retail_partner`, or `customer`; the server must reject
-`super_admin` registration regardless of the client UI.
+matching the selected portal (`dealer`, `sub_dealer`, `customer`, or
+`retail_partner`, `customer`, or `super_admin`). Public registration accepts
+only `dealer`, `sub_dealer`, `retail_partner`, or `customer`; the server must
+reject `super_admin` registration regardless of the client UI.
 
 `/login` and `/register` are portal selectors. Each role then uses a separate
 route (`/customer/login`, `/dealer/login`, `/sub-dealer/login`,
@@ -171,9 +171,9 @@ pre-filled on their respective sign-in pages when demo mode is enabled. Demo
 password sign-in, OTP `123456`, registration, and recovery are handled by a
 browser-memory-only mock. These visible sample credentials are intentionally
 not secrets and must never be reused in a real environment. Super Admin demo
-access is a visual preview only and grants no real privileges. Retail Partner
-accounts can be created in the demo flow but do not have a pre-seeded
-credential.
+access is a visual preview only and grants no real privileges.
+Retail Partner accounts can be created in the demo flow but do not have a
+pre-seeded credential.
 
 `reportAuthFailure` emits a `femxo:auth-failure` browser event containing only
 the endpoint path, HTTP status (when available), and failure category. A

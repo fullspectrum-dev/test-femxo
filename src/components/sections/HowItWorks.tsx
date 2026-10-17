@@ -52,7 +52,7 @@ export function HowItWorks() {
                 <span className="inline-flex size-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-300">
                   <Icon aria-hidden="true" className="size-6" />
                 </span>
-                <span className="font-display text-3xl font-bold text-brand-200 dark:text-brand-800">
+                <span className="font-display text-3xl font-bold text-brand-700 dark:text-brand-300">
                   {number}
                 </span>
               </div>

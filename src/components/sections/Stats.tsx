@@ -1,5 +1,4 @@
 import { Container } from "@/components/shared/Container";
-import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
 import { STATS } from "@/lib/constants";
 
 export function Stats() {
@@ -21,11 +20,9 @@ export function Stats() {
               className="min-w-0 text-center"
             >
               <div className="whitespace-nowrap font-display text-2xl font-extrabold tracking-tight text-white sm:text-4xl xl:text-4xl 2xl:text-5xl">
-                <AnimatedCounter
-                  value={stat.value}
-                  prefix={"prefix" in stat ? stat.prefix : ""}
-                  suffix={stat.suffix}
-                />
+                {"prefix" in stat ? stat.prefix : ""}
+                {stat.value.toLocaleString("en-IN")}
+                {stat.suffix}
               </div>
               <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.12em] text-brand-200 sm:text-base">
                 {stat.label}

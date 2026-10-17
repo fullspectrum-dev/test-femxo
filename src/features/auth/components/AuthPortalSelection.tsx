@@ -11,7 +11,9 @@ export function AuthPortalSelection({ mode }: AuthPortalSelectionProps) {
   const isLogin = mode === "login";
   const isRegister = mode === "register";
   const portals = AUTH_PORTALS.filter(
-    (portal) => !isRegister || portal.accountType !== "super_admin"
+    (portal) =>
+      (!isRegister || portal.accountType !== "retail_partner") &&
+      (!isLogin || portal.accountType !== "retail_partner")
   );
 
   return (
@@ -57,7 +59,9 @@ export function AuthPortalSelection({ mode }: AuthPortalSelectionProps) {
           const href = isLogin
             ? `/${portal.slug}/login`
             : isRegister
-              ? `/${portal.slug}/register`
+              ? isAdmin
+                ? `/${portal.slug}/login`
+                : `/${portal.slug}/register`
               : `/${portal.slug}/forgot-password`;
 
           return (
@@ -76,7 +80,7 @@ export function AuthPortalSelection({ mode }: AuthPortalSelectionProps) {
                 )}
               </span>
               <span className="auth-portal-copy">
-                <strong>{portal.label}</strong>
+                <strong>{isRegister && isAdmin ? "Admin" : portal.label}</strong>
                 <span>
                   {isAdmin
                     ? "Provisioned access · invitation required"
@@ -94,8 +98,7 @@ export function AuthPortalSelection({ mode }: AuthPortalSelectionProps) {
       </nav>
       {isLogin && (
         <p className="auth-portal-hint">
-          Dealer, Sub-dealer, and Retail Partner accounts each have their own
-          sign-in page.
+          Dealer and Sub-dealer accounts each have their own sign-in page.
         </p>
       )}
       {isLogin && (

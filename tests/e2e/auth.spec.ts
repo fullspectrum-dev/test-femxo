@@ -70,6 +70,7 @@ test("portal chooser separates customer, partner, and provisioned admin access",
     "href",
     "/sub-dealer/login"
   );
+  await expect(page.getByRole("link", { name: /Retail Partner/ })).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Super Admin/ })).toContainText(
     "invitation required"
   );
@@ -78,7 +79,22 @@ test("portal chooser separates customer, partner, and provisioned admin access",
     "href",
     "/customer/register"
   );
-  await expect(page.getByRole("link", { name: /Super Admin/ })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /^Admin/ })).toHaveAttribute(
+    "href",
+    "/super-admin/login"
+  );
+  await expect(page.getByRole("link", { name: /^Admin/ })).toContainText(
+    "invitation required"
+  );
+  await expect(page.getByRole("link", { name: /Retail Partner/ })).toHaveCount(0);
+  await page.goto("/forgot-password");
+  await expect(
+    page.getByRole("link", { name: /Retail Partner/ })
+  ).toHaveAttribute("href", "/retail-partner/forgot-password");
+  await page.goto("/retail-partner/login");
+  await expect(
+    page.getByRole("heading", { name: "Retail Partner sign in" })
+  ).toBeVisible();
 });
 
 test("public role registration is fixed to its own account type", async ({
